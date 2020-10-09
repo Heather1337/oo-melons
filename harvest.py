@@ -119,7 +119,6 @@ class MelonType(object):
         self.pairings = []
 
     """Initialize a melon."""
-        # Fill in the rest
 
     def add_pairing(self, pairing):
         """Add a food pairing to the instance's pairings list."""
@@ -205,22 +204,17 @@ class Melon(object):
         else:
             return False
 
-    # Fill in the rest
-    # Needs __init__ and is_sellable methods
+
 
 def make_melons(harvest_melons):
     """Returns a list of Melon objects."""
     melons_list = []
-    #Store dictionary of melon instances which represent the melon class NOT specific melon
     melons_by_id = make_melon_type_lookup(test_melons_list)
 
     for melon in harvest_melons:
         
         melon_key = melon['melon_type']
-        melon_inst = melons_by_id[melon_key]
-        
-        # print('Melon instance-------------', melon_inst)
-    #instantiate a new instance of Melon with the coordinating instance above from Super class and all other attributes
+        melon_inst = melons_by_id[melon_key]   
         melon_change = Melon(melon_inst, melon['shape_rating'], melon['color_rating'], melon['harvested_field'], melon['harvested_by'])
         melons_list.append(melon_change)
 
@@ -237,7 +231,7 @@ def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
     for melon in melons:
         print(melon.is_sellable())
-    # Fill in the rest 
+
 
 get_sellability_report(melons_object)
 
