@@ -41,6 +41,71 @@ melons = [{
 }
 ]
 
+harvest_melon_info = [{
+    'melon_type': 'yw',
+    'shape_rating': 8,
+    'color_rating': 7,
+    'harvested_field': 'Field 2',
+    'harvested_by': 'Sheila'
+},
+{
+    'melon_type': 'yw',
+    'shape_rating': 3,
+    'color_rating': 4,
+    'harvested_field': 'Field 2',
+    'harvested_by': 'Sheila'
+},
+{
+    'melon_type': 'yw',
+    'shape_rating': 9,
+    'color_rating': 8,
+    'harvested_field': 'Field 3',
+    'harvested_by': 'Sheila'
+},
+{
+    'melon_type': 'cas',
+    'shape_rating': 10,
+    'color_rating': 6,
+    'harvested_field': 'Field 35',
+    'harvested_by': 'Sheila'
+},
+{
+    'melon_type': 'cren',
+    'shape_rating': 8,
+    'color_rating': 9,
+    'harvested_field': 'Field 35',
+    'harvested_by': 'Michael'
+},
+{
+    'melon_type': 'cren',
+    'shape_rating': 8,
+    'color_rating': 2,
+    'harvested_field': 'Field 35',
+    'harvested_by': 'Michael'
+},
+{
+    'melon_type': 'cren',
+    'shape_rating': 2,
+    'color_rating': 3,
+    'harvested_field': 'Field 4',
+    'harvested_by': 'Michael'
+},
+{
+    'melon_type': 'musk',
+    'shape_rating': 6,
+    'color_rating': 7,
+    'harvested_field': 'Field 4',
+    'harvested_by': 'Michael'
+},
+{
+    'melon_type': 'yw',
+    'shape_rating': 7,
+    'color_rating': 10,
+    'harvested_field': 'Field 3',
+    'harvested_by': 'Sheila'
+}
+]
+
 class MelonType(object):
     """A species of melon at a melon farm."""
 
@@ -127,19 +192,52 @@ def make_melon_type_lookup(melon_types):
 
 class Melon(object):
     """A melon in a melon harvest."""
+    def __init__(self, melon_type, shape_rating, color_rating, harvested_field, harvested_by):
+        self.melon_type = melon_type
+        self.shape_rating = shape_rating
+        self.color_rating = color_rating
+        self.harvested_field = harvested_field
+        self.harvested_by = harvested_by
+       
+    def is_sellable(self):
+        if self.color_rating > 5 and self.shape_rating > 5 and self.harvested_field != "Field 3":
+            return True
+        else:
+            return False
 
     # Fill in the rest
     # Needs __init__ and is_sellable methods
 
-def make_melons(melon_types):
+def make_melons(harvest_melons):
     """Returns a list of Melon objects."""
+    melons_list = []
+    #Store dictionary of melon instances which represent the melon class NOT specific melon
+    melons_by_id = make_melon_type_lookup(test_melons_list)
 
-    # Fill in the rest
+    for melon in harvest_melons:
+        
+        melon_key = melon['melon_type']
+        melon_inst = melons_by_id[melon_key]
+        
+        # print('Melon instance-------------', melon_inst)
+    #instantiate a new instance of Melon with the coordinating instance above from Super class and all other attributes
+        melon_change = Melon(melon_inst, melon['shape_rating'], melon['color_rating'], melon['harvested_field'], melon['harvested_by'])
+        melons_list.append(melon_change)
+
+       
+    return melons_list
+
+
+
+
+
+melons_object = make_melons(harvest_melon_info)
 
 def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
-
+    for melon in melons:
+        print(melon.is_sellable())
     # Fill in the rest 
 
-
+get_sellability_report(melons_object)
 
